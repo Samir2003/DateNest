@@ -1,0 +1,7 @@
+Back End
+    - Ensure there's no duplicates in db
+
+
+Front End
+    - Style all the screens
+    - 
