@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../.env' });
+
 import express from 'express'
 import router from './routes.js'
 import mongoose from './db/mongoose.js'
