@@ -7,6 +7,7 @@ import { Appbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar';
 const { width, height } = Dimensions.get('screen');
+import styles from '../styles/styles.js'
 
 const MainScreen = ({ navigation }) => {
   const deviceId = Application.androidId
@@ -100,13 +101,7 @@ const MainScreen = ({ navigation }) => {
 
         return <View>
           <Animated.View
-            style={{
-              flexDirection: 'row', padding: SPACING, marginBottom: MARGIN, backgroundColor: '#FFF', borderRadius: 50, borderColor: "#979797", borderWidth: 2,
-              shadowColor: "#e81919",
-              elevation: 600,
-              opacity: 1,
-              transform: [{ scale }]
-            }}>
+            style={styles.animatedView}>
             <TouchableOpacity
               onPress={() => navigation.navigate('VDataScreen', { item })}>
               <Image
@@ -127,11 +122,7 @@ const MainScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             <TouchableOpacity
-              style={{
-                top: "5%",
-                borderRadius: 10,
-                right: "8%"
-              }}
+              style={styles.trash}
               onPress={() => deleteItem(item)}>
               <Entypo name="trash" size={30} />
             </TouchableOpacity>
