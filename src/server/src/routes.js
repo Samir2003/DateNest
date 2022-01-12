@@ -5,7 +5,7 @@ import ExDate from './models/date.js';
 const router = express.Router();
 
 router.get('/test', async (req, res) => {
-  res.send("Connected to nackedn")
+  res.send("Connected to backend yea")
 })
 
 /** 
@@ -32,7 +32,6 @@ router.post('/user', async (req, res) => {
 * @return user if found
 **/
 router.get('/:id/user', async (req, res) => {
-  res.send('a')
   const deviceId = req.params.id;
   res.send('from the server')
 
@@ -63,7 +62,7 @@ router.get('/:id/allmydates', async (req, res) => {
         if(err){
           return res.status(500).send("Error")
         }
-        return res.send(user.dates)
+        return res.send(user)
       });
   } catch (e) {
     res.status(500).send();
@@ -76,6 +75,7 @@ Adds a date to a user specified by deviceId
 date is ExDate
 */
 router.post('/:id/date', async (req, res) => {
+  res.send("test")
   const deviceId = req.params.id;
   try {
     const user = await User.findOne({ deviceId });
