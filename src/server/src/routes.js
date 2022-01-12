@@ -55,14 +55,14 @@ router.get('/:id/allmydates', async (req, res) => {
   const deviceId = req.params.id;
 
   try {
-    const dates = User.findOne({ deviceId })
+    User.findOne({ deviceId })
       .populate('dates')
       .exec((err, user) => {
         if(err){
           return res.status(500).send("Error")
         }
-        return res.send(user)
-      });
+        return res.send(user.dates)
+      })
   } catch (e) {
     res.status(500).send();
   }
