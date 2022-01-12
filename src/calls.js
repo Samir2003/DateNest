@@ -22,8 +22,8 @@ const getUser = async (deviceId) => {
   };
   try {
     console.log("fetching")
-    const response = await fetch(`/${deviceId}/user`, requestOptions)
-    const body = await response.text()
+    const response = await fetch(`https://datenest.herokuapp.com/${deviceId}/user`, requestOptions)
+    const body = await response.json()
     console.log(body)
     return body
   } catch (e) {
