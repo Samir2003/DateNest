@@ -5,3 +5,9 @@ Back End
 Front End
     - Style all the screens
     - 
+
+
+Future Updates
+- make logo spin
+-login/auth
+  -face ID

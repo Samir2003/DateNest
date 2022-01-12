@@ -1,26 +1,9 @@
 import StyleSheet from 'react-native'
 
 const styles = StyleSheet.create({
+  //General
   screen: {
 
-  },
-  animatedView: {
-    flexDirection: 'row', 
-    padding: 18, 
-    marginBottom: 10, 
-    backgroundColor: '#FFF', 
-    borderRadius: 50, 
-    borderColor: "#979797", 
-    borderWidth: 2,
-    shadowColor: "#e81919",
-    elevation: 600,
-    opacity: 1,
-    transform: [{ scale }]
-  },
-  trash: {
-    top: "5%",
-    borderRadius: 10,
-    right: "8%"
   },
   screenContainer: {
     flex: 1,
@@ -30,6 +13,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  text1: {
+    fontSize: height * 0.04, 
+    fontWeight: '700'
+  },
+  text2: {
+    fontSize: 17, 
+    opacity: .8, 
+    color: '#0099cc', 
+    marginTop: 6
   },
   buttonStyle: {
     height: 54,
@@ -50,6 +43,33 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: '#fdfdfd',
     fontWeight: '700',
+  },
+
+  //Headers
+  appbarContent: {
+    textAlign:"center",
+    fontSize:25
+  },
+  appbarAction: {
+    position:"absolute",
+    right:0
+  },
+  appbarBack: {
+    position: "absolute"
+  },
+
+
+  //icons
+  trash: {
+    top: "5%",
+    borderRadius: 10,
+    right: "8%"
+  },
+  avatar: {
+    width: 70, 
+    height: 70, 
+    borderRadius: 70,
+    marginRight: 23
   },
 });
 
