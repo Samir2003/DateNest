@@ -5,7 +5,7 @@ import ExDate from './models/date.js';
 const router = express.Router();
 
 router.get('/test', async (req, res) => {
-  res.send("Connected to backend yea")
+  res.send("Samir is stupid")
 })
 
 /** 
