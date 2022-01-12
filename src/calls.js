@@ -40,7 +40,7 @@ const getMyDates = async (deviceId) => {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   };
-  const response = await fetch(`https://agile-gorge-94685.herokuapp.com/${deviceId}/allmydates`, requestOptions)
+  const response = await fetch(`https://datenest.herokuapp.com/${deviceId}/allmydates`, requestOptions)
   const body = await response.json()
 
   return body
@@ -56,7 +56,7 @@ const addDate = async (deviceId, date) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(date)
   };
-  const response = await fetch(`https://agile-gorge-94685.herokuapp.com/${deviceId}/date`, requestOptions)
+  const response = await fetch(`https://datenest.herokuapp.com/${deviceId}/date`, requestOptions)
   const body = await response.json()
 
   console.log(body)
@@ -75,7 +75,7 @@ const deleteDate = async (deviceId, date) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(date)
   };
-  const response = await fetch(`https://agile-gorge-94685.herokuapp.com/${deviceId}/date`, requestOptions)
+  const response = await fetch(`https://datenest.herokuapp.com/${deviceId}/date`, requestOptions)
   const body = await response.json()
   return body
 }
@@ -91,7 +91,7 @@ const updateDate = async (date) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(date)
   };
-  const response = await fetch(`https://agile-gorge-94685.herokuapp.com/date/update`, requestOptions)
+  const response = await fetch(`https://datenest.herokuapp.com/date/update`, requestOptions)
   const body = await response.json()
 
   return body
