@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-dotenv.config({ path: '../.env' })
+dotenv.config({ path: '../sample.env' })
 
 import express from 'express'
 import router from './routes.js'

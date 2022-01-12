@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
-    "dev": "env-cmd -f ./.env nodemon src/server.js"
+    "dev": "env-cmd -f ./sample.env nodemon src/server.js"
   },
   "author": "",
   "license": "ISC",
