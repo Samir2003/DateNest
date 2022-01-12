@@ -33,7 +33,6 @@ router.post('/user', async (req, res) => {
 **/
 router.get('/:id/user', async (req, res) => {
   const deviceId = req.params.id;
-  res.send('from the server')
 
   try {
     const user = await User.findOne({ deviceId });
