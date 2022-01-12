@@ -3,9 +3,16 @@ import router from './routes.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 
-dotenv.config({ path: './sample.env' })
-mongoose.connect(process.env.MONGODB_URL, {
+dotenv.config()
+mongoose.connect('mongodb+srv://Admin:admin@datepad.zzdan.mongodb.net/DatePad?retryWrites=true&w=majority', {
   useNewUrlParser:true 
+})
+.then(() => {
+  console.log('con to db established')
+})
+.catch(err => {
+  console.log(`db err: ${err.message}`);
+  process.exit(-1)
 })
 const app = express()
 const port = process.env.PORT || 3002
