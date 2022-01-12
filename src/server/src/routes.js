@@ -13,7 +13,7 @@ router.get('/test', async (req, res) => {
 * @req has a body that contains an object with all the required fields of a user
 * @return user as an object
 **/
-router.post('https://datenest.herokuapp.com/user', async (req, res) => {
+router.post('/user', async (req, res) => {
   const user = new User(req.body);
 
   try {
@@ -31,7 +31,7 @@ router.post('https://datenest.herokuapp.com/user', async (req, res) => {
 * @id is the deviceId
 * @return user if found
 **/
-router.get('https://datenest.herokuapp.com/:id/user', async (req, res) => {
+router.get('/:id/user', async (req, res) => {
   res.send('a')
   const deviceId = req.params.id;
   res.send('from the server')
@@ -53,7 +53,7 @@ Gets all of a user's dates
 :id is the device id
 returns array of 
 */
-router.get('https://datenest.herokuapp.com/:id/allmydates', async (req, res) => {
+router.get('/:id/allmydates', async (req, res) => {
   const deviceId = req.params.id;
 
   try {
@@ -75,7 +75,7 @@ Adds a date to a user specified by deviceId
 :id is the device id
 date is ExDate
 */
-router.post('https://datenest.herokuapp.com/:id/date', async (req, res) => {
+router.post('/:id/date', async (req, res) => {
   const deviceId = req.params.id;
   try {
     const user = await User.findOne({ deviceId });
@@ -103,7 +103,7 @@ deletes a date
 :id is device id
 _id is the date ObjectId. Make sure to include in body of request
 */
-router.delete('https://datenest.herokuapp.com/:id/date', async (req, res) => {
+router.delete('/:id/date', async (req, res) => {
   const deviceId = req.params.id
   const _id = req.body._id
 
@@ -131,7 +131,7 @@ _id in body is the id of the date to be updated
 updates in  body is an array of updates
   Ex. [{name: newUsername}, {age: newAge}]
 */
-router.patch('https://datenest.herokuapp.com/date/update', async (req, res) => {
+router.patch('/date/update', async (req, res) => {
   const _id = req.body._id
 
   try {
