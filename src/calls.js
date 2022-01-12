@@ -5,7 +5,6 @@ const addUser = async (user) => {
     body: JSON.stringify(user)
   };
 
-  console.log(requestOptions.body)
   console.log("Api request is connected please work or Samir is an idiot")
   const response = await fetch('https://datenest.herokuapp.com/user', requestOptions)
   const body = await response.text()

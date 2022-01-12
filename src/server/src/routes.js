@@ -4,6 +4,10 @@ import ExDate from './models/date.js';
 
 const router = express.Router();
 
+router.get('/test', async (req, res) => {
+  res.send("Connected to nackedn")
+})
+
 /** 
 * Adds a user to db
 * @req has a body that contains an object with all the required fields of a user
@@ -28,6 +32,7 @@ router.post('https://datenest.herokuapp.com/user', async (req, res) => {
 * @return user if found
 **/
 router.get('https://datenest.herokuapp.com/:id/user', async (req, res) => {
+  res.send('a')
   const deviceId = req.params.id;
   res.send('from the server')
 
