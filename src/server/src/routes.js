@@ -18,9 +18,9 @@ router.post('/user', async (req, res) => {
 
   try {
     await user.save();
-    res.status(201).send({ user });
+    res.send({ user });
   } catch (e) {
-    res.status(400).send(e);
+    res.send(e);
   }
 });
 
@@ -38,11 +38,11 @@ router.get('/:id/user', async (req, res) => {
     const user = await User.findOne({ deviceId });
 
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.send('User not found');
     }
     res.send(user);
   } catch (e) {
-    res.status(500).send('Internal error');
+    res.send('Internal error');
   }
 });
 
@@ -59,12 +59,12 @@ router.get('/:id/allmydates', async (req, res) => {
       .populate('dates')
       .exec((err, user) => {
         if(err){
-          return res.status(500).send("Error")
+          return res.send("Error")
         }
         return res.send(user.dates)
       })
   } catch (e) {
-    res.status(500).send();
+    res.send();
   }
 });
 
@@ -74,13 +74,12 @@ Adds a date to a user specified by deviceId
 date is ExDate
 */
 router.post('/:id/date', async (req, res) => {
-  res.send("test")
   const deviceId = req.params.id;
   try {
     const user = await User.findOne({ deviceId });
 
     if (!user) {
-      return res.status(404).send('User not found');
+      return res.send('User not found');
     }
 
     const exDate = new ExDate(req.body);
@@ -93,7 +92,7 @@ router.post('/:id/date', async (req, res) => {
 
     res.send(user);
   } catch (e) {
-    res.status(500).send('Could not add date');
+    res.send('Could not add date');
   }
 });
 
