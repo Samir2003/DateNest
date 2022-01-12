@@ -7,8 +7,8 @@ const addUser = async (user) => {
 
   console.log(requestOptions.body)
   console.log("Api request is connected please work or Samir is an idiot")
-  const response = await fetch('/user', requestOptions)
-  const body = await response.json()
+  const response = await fetch('https://datenest.herokuapp.com/user', requestOptions)
+  const body = await response.text()
 
   return body
 };
@@ -23,7 +23,7 @@ const getUser = async (deviceId) => {
   try {
     console.log("fetching")
     const response = await fetch(`https://datenest.herokuapp.com/${deviceId}/user`, requestOptions)
-    const body = await response.json()
+    const body = await response.text()
     console.log(body)
     return body
   } catch (e) {
