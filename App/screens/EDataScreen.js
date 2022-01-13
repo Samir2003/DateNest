@@ -210,13 +210,15 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     color: AppStyles.color.text
   },
-  button: {
+  button1: {
     width: AppStyles.textInputWidth.main,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
     padding: 10,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: AppStyles.color.grey,
+    borderColor: AppStyles.color.blue,
     borderRadius: AppStyles.borderRadius.main,
     position: 'absolute',
     bottom: '17%'
