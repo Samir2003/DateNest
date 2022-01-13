@@ -23,18 +23,18 @@ const EDataScreen = ({ navigation }) => {
   const [numberOfDates, setnumberOfDates] = useState('');
   const [lastDate, setlastDate] = useState('');
   const [notes, setNotes] = useState('');
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(null);
 
   const handleChoosePhoto = async () => {
     const options = {
       noData: true
+    };
+    const response = await ImagePicker.launchImageLibrary(options);
+    if (response.uri) {
+      setImage(response);
+      alert('Image was successfully uploaded');
     }
-    const response = await ImagePicker.launchImageLibrary(options)
-    if(response.uri) {
-      setImage(response)
-      alert("Image was successfully uploaded")
-    }
-  }
+  };
 
   const onPress = async (e) => {
     e.preventDefault();
@@ -136,11 +136,7 @@ const EDataScreen = ({ navigation }) => {
         />
       </View>
       <View>
-        
-        <TouchableOpacity
-          onPress={handleChoosePhoto}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={handleChoosePhoto} style={styles.button}>
           <Text style={{ color: AppStyles.color.text }}>Choose Photo</Text>
         </TouchableOpacity>
       </View>
