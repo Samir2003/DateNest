@@ -30,7 +30,7 @@ const exDateSchema = mongoose.Schema({
     // }
   },
   image: {
-    type: Buffer
+    type: String
   },
   notes: {
     type: String

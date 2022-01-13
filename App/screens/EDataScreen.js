@@ -6,14 +6,16 @@ import {
   Button,
   Text,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import * as Application from 'expo-application';
 import api from '../../src/calls.js';
 import { useForm, Controller } from 'react-hook-form';
 import { Appbar } from 'react-native-paper';
 import { AppStyles } from '../AppStyles';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+const { width, height } = Dimensions.get('screen');
 
 const EDataScreen = ({ navigation }) => {
   const deviceId = Application.androidId;
@@ -26,13 +28,17 @@ const EDataScreen = ({ navigation }) => {
   const [image, setImage] = useState(null)
 
   const handleChoosePhoto = async () => {
-    const options = {
-      noData: true
-    }
-    const response = await ImagePicker.launchImageLibrary(options)
-    if(response.uri) {
-      setImage(response)
-      alert("Image was successfully uploaded")
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result.uri);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
     }
   }
 
@@ -136,7 +142,6 @@ const EDataScreen = ({ navigation }) => {
         />
       </View>
       <View>
-        
         <TouchableOpacity
           onPress={handleChoosePhoto}
           style={styles.button}
@@ -144,10 +149,10 @@ const EDataScreen = ({ navigation }) => {
           <Text style={{ color: AppStyles.color.text }}>Choose Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity
-        onPress={onPress}
-        style={styles.button1}>
-        <Text style={{color: AppStyles.color.text}}>Submit</Text>
-      </TouchableOpacity>
+          onPress={onPress}
+          style={styles.button1}>
+          <Text style={{ color: AppStyles.color.text }}>Submit</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -231,11 +236,12 @@ const styles = StyleSheet.create({
     borderColor: AppStyles.color.blue,
     borderRadius: AppStyles.borderRadius.main,
     position: 'absolute',
-    bottom:'4%',
+    top: height*0.1,
+    left: width*0.0005,
   },
   facebookText: {
     color: AppStyles.color.white
   }
 });
 
-export default EDataScreen;
+export default EDataScreen

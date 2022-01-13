@@ -1,11 +1,7 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Dimensions} from 'react-native'
+const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
-  trash: {
-    top: "5%",
-    borderRadius: 10,
-    right: "8%"
-  },
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -16,8 +12,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   text1: {
-    fontSize: height * 0.04, 
-    fontWeight: '700'
+    fontSize: 20
   },
   text2: {
     fontSize: 17, 
@@ -67,8 +62,9 @@ const styles = StyleSheet.create({
     right: "8%"
   },
   avatar: {
-    width: 70, 
-    height: 70, 
+    // width: "3%", 
+    // height: '3%', 
+    height: '10%',
     borderRadius: 70,
     marginRight: 23
   },
