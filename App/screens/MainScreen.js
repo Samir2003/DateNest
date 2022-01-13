@@ -142,7 +142,5 @@ const MainScreen = ({ navigation }) => {
   </View>
 }
 
-const animatedViewStyle
-
 /// Just some styles
 export default MainScreen
