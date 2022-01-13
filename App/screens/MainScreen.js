@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Dimensions, Easing, SafeAreaView, SafeAreaViewBase, FlatList, Animated } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Dimensions, Animated } from 'react-native';
 import * as Application from 'expo-application';
 import api from '../../src/calls.js'
-import { FontAwesome, Ionicons, Entypo, AntDesign } from 'react-native-vector-icons'
+import { Entypo } from 'react-native-vector-icons'
 import { Appbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar';
@@ -50,12 +50,14 @@ const MainScreen = ({ navigation }) => {
     return names[0][0] + '. ' + names[1]
   }
 
+
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  return <View style={{ height: height, bottom: 0, flex: 1, backgroundColor: '#fff', ...StyleSheet.absoluteFillObject }}>
-    <Appbar.Header style={{ backgroundColor: '#FF7A93' }}>
-      <Appbar.Content title="DateNest" titleStyle={{ textAlign: "center", fontSize: 25 }} />
-      <Appbar.Action icon="plus" style={{ position: "absolute", right: 0 }} onPress={() => navigation.navigate('EDataScreen')} />
+  return <View style={{ height: height,bottom: 0,flex: 1, backgroundColor: '#e81919', ...StyleSheet.absoluteFillObject }}>
+    <Appbar.Header style={{backgroundColor:'#FF7A93'}}>
+      <Image source={require('../../assets/logo.png')}></Image>
+      <Appbar.Content title="DateNest" titleStyle={styles.appbarContent}/>
+      <Appbar.Action icon="plus" style={styles.appbarAction}onPress={() => navigation.navigate('EDataScreen')} />
     </Appbar.Header>
     {/* <Image
       source={require('../../assets/rose.png')}
@@ -100,12 +102,12 @@ const MainScreen = ({ navigation }) => {
         return <View>
           <Animated.View
             style={{
-              flexDirection: 'row',
-              padding: 18,
-              marginBottom: 10,
-              backgroundColor: '#FFF',
-              borderRadius: 50,
-              borderColor: "#979797",
+              flexDirection: 'row', 
+              padding: 18, 
+              marginBottom: 10, 
+              backgroundColor: '#FFF', 
+              borderRadius: 50, 
+              borderColor: "#979797", 
               borderWidth: 2,
               shadowColor: "#e81919",
               elevation: 600,
@@ -116,18 +118,15 @@ const MainScreen = ({ navigation }) => {
               onPress={() => navigation.navigate('VDataScreen', { item })}>
               <Image
                 source={require('../../assets/avatar.png')}
-                style={{
-                  width: AVATAR_SIZE, height: AVATAR_SIZE, borderRadius: AVATAR_SIZE,
-                  marginRight: SPACING + 5
-                }}
+                style={styles.avatar}
               />
             </TouchableOpacity>
             <View style={{ flex: 1 }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('VDataScreen', { item })}>
-                <Text style={{ fontSize: height * 0.04, fontWeight: '700' }}>
+                <Text style={styles.text1}>
                   {trimName(item.name)} {item.age && <Text>, {item.age}</Text>}</Text>
-                <Text style={{ fontSize: 17, opacity: .8, color: '#0099cc', marginTop: 6 }}>
+                <Text style={styles.text2}>
                   {item.phoneNumber ? item.phoneNumber : "No contact info"}</Text>
               </TouchableOpacity>
             </View>

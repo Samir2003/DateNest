@@ -1,63 +1,79 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, Button, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  Text,
+  KeyboardAvoidingView,
+  TouchableOpacity
+} from 'react-native';
 import * as Application from 'expo-application';
-import api from '../../src/calls.js'
-import { useForm, Controller} from "react-hook-form"
-import { Appbar } from 'react-native-paper'
-import {AppStyles} from '../AppStyles';
+import api from '../../src/calls.js';
+import { useForm, Controller } from 'react-hook-form';
+import { Appbar } from 'react-native-paper';
+import { AppStyles } from '../AppStyles';
 import ImagePicker from 'react-native-image-picker';
 
 const EDataScreen = ({ navigation }) => {
-const deviceId = Application.androidId
-const [name, setName] = useState('')
-const [age, setAge] = useState('')
-const [phoneNumber, setphoneNumber] = useState('')
-const [numberOfDates, setnumberOfDates] = useState('')
-const [lastDate, setlastDate] = useState('')
-const [notes, setNotes] = useState('')
-const [image, setImage] = useState('')
+  const deviceId = Application.androidId;
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [phoneNumber, setphoneNumber] = useState('');
+  const [numberOfDates, setnumberOfDates] = useState('');
+  const [lastDate, setlastDate] = useState('');
+  const [notes, setNotes] = useState('');
+  const [image, setImage] = useState(null)
 
-const insertImage = async (type) => {
-  const options = {
-    noData: true
-  };
-  ImagePicker.launchImageLibrary(options , response => {
-    console.log("response", response);
-    setImage(response);
-    });
-};
-
-const onPress = async (e) => {
-  e.preventDefault()
-
-  const newDate = {
-    name,
-    age: parseInt(age),
-    phoneNumber,
-    numberOfDates: parseInt(numberOfDates),
-    lastDate,
-    // image: e.target.elements.image.value,
-    notes
+  const handleChoosePhoto = async () => {
+    const options = {
+      noData: true
+    }
+    const response = await ImagePicker.launchImageLibrary(options)
+    if(response.uri) {
+      setImage(response)
+      alert("Image was successfully uploaded")
+    }
   }
 
-  api.addDate(deviceId, newDate)
-    .then((result) => {
-      alert('Date was added')
-      navigation.navigate('MainScreen')
-    })
-    .catch((e) => {
-      alert('Error', e)
-    })
-}
+  const onPress = async (e) => {
+    e.preventDefault();
 
-return (
-  <View style={styles.container}>
-    <View style={{width:'100%'}}>
-      <Appbar.Header style={{ backgroundColor: '#FF7A93' }}>
-        <Appbar.Content title="Enter your new date" titleStyle={{ textAlign: "center", fontSize: 25 }} />
-        <Appbar.BackAction style={{position:"absolute"}}onPress={navigation.goBack} />
-      </Appbar.Header>
-    </View>
+    const newDate = {
+      name,
+      age: parseInt(age),
+      phoneNumber,
+      numberOfDates: parseInt(numberOfDates),
+      lastDate,
+      image,
+      notes
+    };
+
+    api
+      .addDate(deviceId, newDate)
+      .then((result) => {
+        alert('Date was added');
+        navigation.navigate('MainScreen');
+      })
+      .catch((e) => {
+        alert('Error', e);
+      });
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={{ width: '100%' }}>
+        <Appbar.Header style={{ backgroundColor: '#FF7A93' }}>
+          <Appbar.Content
+            title="Enter your new date"
+            titleStyle={{ textAlign: 'center', fontSize: 25 }}
+          />
+          <Appbar.BackAction
+            style={{ position: 'absolute' }}
+            onPress={navigation.goBack}
+          />
+        </Appbar.Header>
+      </View>
       <View style={styles.InputContainer}>
         <TextInput
           style={styles.body}
@@ -119,19 +135,23 @@ return (
           multiline={true}
         />
       </View>
-      {/* <TouchableOpacity
-        onPress={() => insertImage('photo')}
-        style={styles.button}>
-        <Text style={{color: AppStyles.color.text}}>Insert Image</Text>
-      </TouchableOpacity> */}
-      <TouchableOpacity
+      <View>
+        
+        <TouchableOpacity
+          onPress={handleChoosePhoto}
+          style={styles.button}
+        >
+          <Text style={{ color: AppStyles.color.text }}>Choose Photo</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
         onPress={onPress}
         style={styles.button1}>
         <Text style={{color: AppStyles.color.text}}>Submit</Text>
       </TouchableOpacity>
+      </View>
     </View>
-);
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -144,32 +164,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: AppStyles.color.tint,
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 20
   },
   leftTitle: {
     alignSelf: 'stretch',
     textAlign: 'left',
-    marginLeft: 20,
+    marginLeft: 20
   },
   content: {
     paddingLeft: 50,
     paddingRight: 50,
     textAlign: 'center',
     fontSize: AppStyles.fontSize.content,
-    color: AppStyles.color.text,
+    color: AppStyles.color.text
   },
   loginContainer: {
     width: AppStyles.buttonWidth.main,
     backgroundColor: AppStyles.color.tint,
     borderRadius: AppStyles.borderRadius.main,
     padding: 10,
-    marginTop: 30,
+    marginTop: 30
   },
   loginText: {
-    color: AppStyles.color.white,
+    color: AppStyles.color.white
   },
   placeholder: {
-    color: 'red',
+    color: 'red'
   },
   InputContainer: {
     width: AppStyles.textInputWidth.main,
@@ -177,7 +197,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: AppStyles.color.grey,
-    borderRadius: AppStyles.borderRadius.main,
+    borderRadius: AppStyles.borderRadius.main
   },
   InputContainerNotes: {
     width: AppStyles.textInputWidth.main,
@@ -186,19 +206,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: AppStyles.color.grey,
-    borderRadius: AppStyles.borderRadius.main,
+    borderRadius: AppStyles.borderRadius.main
   },
   body: {
     height: 42,
     paddingLeft: 20,
     paddingRight: 20,
-    color: AppStyles.color.text,
+    color: AppStyles.color.text
   },
   bodyNotes: {
     height: '94%',
     paddingLeft: 20,
     paddingRight: 20,
-    color: AppStyles.color.text,
+    color: AppStyles.color.text
   },
   button1: {
     width: AppStyles.textInputWidth.main,
@@ -214,8 +234,8 @@ const styles = StyleSheet.create({
     bottom:'4%',
   },
   facebookText: {
-    color: AppStyles.color.white,
-  },
+    color: AppStyles.color.white
+  }
 });
 
 export default EDataScreen;
