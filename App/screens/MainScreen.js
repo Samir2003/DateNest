@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, TouchableOpacity, Dimensions, Animated } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Dimensions, Easing, SafeAreaView, SafeAreaViewBase, FlatList, Animated } from 'react-native';
 import * as Application from 'expo-application';
 import api from '../../src/calls.js'
-import { Entypo } from 'react-native-vector-icons'
+import { FontAwesome, Ionicons, Entypo, AntDesign } from 'react-native-vector-icons'
 import { Appbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar';
@@ -14,12 +14,13 @@ const MainScreen = ({ navigation }) => {
 
   const [dates, setDates] = useState([])
   const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null)
   const isFocused = useIsFocused()
   const SPACING = 18;
   const MARGIN = 10;
   const AVATAR_SIZE = 70;
   const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
-
+  
 
   useEffect(() => {
     api.getMyDates(deviceId).then((dates) => {
@@ -28,7 +29,6 @@ const MainScreen = ({ navigation }) => {
       console.log(e)
     })
   }, [isFocused, loading])
-
 
   /*
    * @param _id is the objectId of the date to be deleted
@@ -50,14 +50,18 @@ const MainScreen = ({ navigation }) => {
     return names[0][0] + '. ' + names[1]
   }
 
-
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  return <View style={{ height: height,bottom: 0,flex: 1, backgroundColor: '#e81919', ...StyleSheet.absoluteFillObject }}>
-    <Appbar.Header style={{backgroundColor:'#FF7A93'}}>
-      <Image source={require('../../assets/logo.png')}></Image>
-      <Appbar.Content title="DateNest" titleStyle={styles.appbarContent}/>
-      <Appbar.Action icon="plus" style={styles.appbarAction}onPress={() => navigation.navigate('EDataScreen')} />
+  return <View style={{ height: height, bottom: 0, backgroundColor: '#fff', ...StyleSheet.absoluteFillObject }}>
+    <Appbar.Header style={{ backgroundColor: '#FF7A93', alignItems: "center", height: '11%' }}>
+      <Image source={require('../../assets/logo.png')} style={{
+        left: width * 0.21,
+        top: height * 0.06
+      }} />
+      <Appbar.Action
+        icon="plus"
+        style={{ position: "absolute", right: 0 }}
+        onPress={() => navigation.navigate('EDataScreen')} />
     </Appbar.Header>
     {/* <Image
       source={require('../../assets/rose.png')}
@@ -102,12 +106,12 @@ const MainScreen = ({ navigation }) => {
         return <View>
           <Animated.View
             style={{
-              flexDirection: 'row', 
-              padding: 18, 
-              marginBottom: 10, 
-              backgroundColor: '#FFF', 
-              borderRadius: 50, 
-              borderColor: "#979797", 
+              flexDirection: 'row',
+              padding: 18,
+              marginBottom: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 50,
+              borderColor: "#979797",
               borderWidth: 2,
               shadowColor: "#e81919",
               elevation: 600,
@@ -117,16 +121,21 @@ const MainScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => navigation.navigate('VDataScreen', { item })}>
               <Image
-                source={require('../../assets/avatar.png')}
-                style={styles.avatar}
+                source={item.image ? { uri: item.image.uri } : (require('../../assets/avatar.png'))}
+                style={{
+                  width: AVATAR_SIZE, 
+                  height: AVATAR_SIZE, 
+                  borderRadius: AVATAR_SIZE,
+                  marginRight: SPACING + 5
+                }}
               />
             </TouchableOpacity>
             <View style={{ flex: 1 }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('VDataScreen', { item })}>
-                <Text style={styles.text1}>
+                <Text style={{ fontSize: height * 0.04, fontWeight: '700' }}>
                   {trimName(item.name)} {item.age && <Text>, {item.age}</Text>}</Text>
-                <Text style={styles.text2}>
+                <Text style={{ fontSize: 17, opacity: .8, color: '#0099cc', marginTop: 6 }}>
                   {item.phoneNumber ? item.phoneNumber : "No contact info"}</Text>
               </TouchableOpacity>
             </View>

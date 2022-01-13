@@ -6,14 +6,16 @@ import {
   Button,
   Text,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import * as Application from 'expo-application';
 import api from '../../src/calls.js';
 import { useForm, Controller } from 'react-hook-form';
 import { Appbar } from 'react-native-paper';
 import { AppStyles } from '../AppStyles';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+const { width, height } = Dimensions.get('screen');
 
 const EDataScreen = ({ navigation }) => {
   const deviceId = Application.androidId;
@@ -228,4 +230,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EDataScreen;
+export default EDataScreen
