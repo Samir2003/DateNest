@@ -119,10 +119,15 @@ return (
           multiline={true}
         />
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => insertImage('photo')}
         style={styles.button}>
         <Text style={{color: AppStyles.color.text}}>Insert Image</Text>
+      </TouchableOpacity> */}
+      <TouchableOpacity
+        onPress={onPress}
+        style={styles.button1}>
+        <Text style={{color: AppStyles.color.text}}>Submit</Text>
       </TouchableOpacity>
     </View>
 );
@@ -132,6 +137,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#FFEBF7'
   },
   title: {
     fontSize: AppStyles.fontSize.title,
@@ -194,16 +200,18 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     color: AppStyles.color.text,
   },
-  button: {
+  button1: {
     width: AppStyles.textInputWidth.main,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
     padding: 10,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: AppStyles.color.grey,
+    borderColor: AppStyles.color.blue,
     borderRadius: AppStyles.borderRadius.main,
     position: 'absolute',
-    bottom:'17%',
+    bottom:'4%',
   },
   facebookText: {
     color: AppStyles.color.white,
