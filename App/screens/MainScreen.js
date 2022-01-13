@@ -53,7 +53,7 @@ const MainScreen = ({ navigation }) => {
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  return <View style={{ height: height,bottom: 0,flex: 1, backgroundColor: '#fff', ...StyleSheet.absoluteFillObject }}>
+  return <View style={{ height: height,bottom: 0,flex: 1, backgroundColor: '#e81919', ...StyleSheet.absoluteFillObject }}>
     <Appbar.Header style={{backgroundColor:'#FF7A93'}}>
       <Image source={require('../../assets/logo.png')}></Image>
       <Appbar.Content title="DateNest" titleStyle={styles.appbarContent}/>
