@@ -1,22 +1,6 @@
-import StyleSheet from 'react-native'
+import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
-  screen: {
-
-  },
-  animatedView: {
-    flexDirection: 'row', 
-    padding: 18, 
-    marginBottom: 10, 
-    backgroundColor: '#FFF', 
-    borderRadius: 50, 
-    borderColor: "#979797", 
-    borderWidth: 2,
-    shadowColor: "#e81919",
-    elevation: 600,
-    opacity: 1,
-    transform: [{ scale }]
-  },
   trash: {
     top: "5%",
     borderRadius: 10,

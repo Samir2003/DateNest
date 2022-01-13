@@ -50,14 +50,12 @@ const MainScreen = ({ navigation }) => {
     return names[0][0] + '. ' + names[1]
   }
 
-
-
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  return <View style={{ height: height,bottom: 0,flex: 1, backgroundColor: '#fff', ...StyleSheet.absoluteFillObject }}>
-    <Appbar.Header style={{backgroundColor:'#FF7A93'}}>
-      <Appbar.Content title="DateNest" titleStyle={{textAlign:"center",fontSize:25}}/>
-      <Appbar.Action icon="plus" style={{position:"absolute",right:0}}onPress={() => navigation.navigate('EDataScreen')} />
+  return <View style={{ height: height, bottom: 0, flex: 1, backgroundColor: '#fff', ...StyleSheet.absoluteFillObject }}>
+    <Appbar.Header style={{ backgroundColor: '#FF7A93' }}>
+      <Appbar.Content title="DateNest" titleStyle={{ textAlign: "center", fontSize: 25 }} />
+      <Appbar.Action icon="plus" style={{ position: "absolute", right: 0 }} onPress={() => navigation.navigate('EDataScreen')} />
     </Appbar.Header>
     {/* <Image
       source={require('../../assets/rose.png')}
@@ -101,7 +99,19 @@ const MainScreen = ({ navigation }) => {
 
         return <View>
           <Animated.View
-            style={styles.animatedView}>
+            style={{
+              flexDirection: 'row',
+              padding: 18,
+              marginBottom: 10,
+              backgroundColor: '#FFF',
+              borderRadius: 50,
+              borderColor: "#979797",
+              borderWidth: 2,
+              shadowColor: "#e81919",
+              elevation: 600,
+              opacity: 1,
+              transform: [{ scale }]
+            }}>
             <TouchableOpacity
               onPress={() => navigation.navigate('VDataScreen', { item })}>
               <Image
@@ -132,6 +142,7 @@ const MainScreen = ({ navigation }) => {
     />
   </View>
 }
+
 
 /// Just some styles
 export default MainScreen
