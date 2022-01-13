@@ -1,9 +1,10 @@
-import StyleSheet from 'react-native'
+import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
-  //General
-  screen: {
-
+  trash: {
+    top: "5%",
+    borderRadius: 10,
+    right: "8%"
   },
   screenContainer: {
     flex: 1,

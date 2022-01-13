@@ -1,167 +1,213 @@
-  import React, { useState } from 'react';
-  import { View, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
-  import * as Application from 'expo-application';
-  import api from '../../src/calls.js'
-  import { useForm, Controller} from "react-hook-form"
-  import { Appbar } from 'react-native-paper'
+import React, { useState } from 'react';
+import { View, StyleSheet, TextInput, Button, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import * as Application from 'expo-application';
+import api from '../../src/calls.js'
+import { useForm, Controller} from "react-hook-form"
+import { Appbar } from 'react-native-paper'
+import {AppStyles} from '../AppStyles';
+import ImagePicker from 'react-native-image-picker';
 
-  const EDataScreen = ({ navigation }) => {
-    const { control, handleSubmit, errors } = useForm();
-    const deviceId = Application.androidId
-    const [name, setName] = useState('')
-    const [age, setAge] = useState('')
-    const [phoneNumber, setphoneNumber] = useState('')
-    const [numberOfDates, setnumberOfDates] = useState('')
-    const [lastDate, setlastDate] = useState('')
-    const [notes, setNotes] = useState('')
+const EDataScreen = ({ navigation }) => {
+const deviceId = Application.androidId
+const [name, setName] = useState('')
+const [age, setAge] = useState('')
+const [phoneNumber, setphoneNumber] = useState('')
+const [numberOfDates, setnumberOfDates] = useState('')
+const [lastDate, setlastDate] = useState('')
+const [notes, setNotes] = useState('')
+const [image, setImage] = useState('')
 
-
-    const onPress = async (e) => {
-      e.preventDefault()
-
-      const newDate = {
-        name,
-        age: parseInt(age),
-        phoneNumber,
-        numberOfDates: parseInt(numberOfDates),
-        lastDate,
-        // image: e.target.elements.image.value,
-        notes
-      }
-
-      api.addDate(deviceId, newDate)
-        .then((result) => {
-          alert('Date was added')
-          navigation.navigate('MainScreen')
-        })
-        .catch((e) => {
-          alert('Error', e)
-        })
-    }
-
-    return (
-      <View style={styles.container}>
-          <View style={styles.top}></View>
-
-          <View style={styles.middle}>
-            <Text style={styles.textContainer}>You are ready to go</Text>
-
-            <View style={styles.formArea}>
-              <Text style={[styles.textContainer, styles.signin]}>Sign in</Text>
-              <Form style={styles.mainForm}>
-                <Item style={styles.formItems}>
-                  <Input placeholder="Username" style={styles.Input} />
-                </Item>
-                <Item style={styles.formItems}>
-                  <Input placeholder="Password" style={styles.Input} />
-                </Item>
-                <View style={styles.loginAs}>
-                  <Text style={styles.loginText}>Login as</Text>
-                  <Body>
-                    <Text style={styles.cboxText}>Admin</Text>
-                  </Body>
-                  <Body>
-                    <Text style={styles.cboxText}>User</Text>
-                  </Body>
-                </View>
-                <View style={styles.Button}>
-                  <Button block style={styles.mainBtn}>
-                    <Text style={styles.btnText}>Submit</Text>
-                  </Button>
-                </View>
-              </Form>
-            </View>
-          </View>
-          <View style={styles.bottom}></View>
-        </View>
-      );
+const insertImage = async (type) => {
+  const options = {
+    noData: true
   };
+  ImagePicker.launchImageLibrary(options , response => {
+    console.log("response", response);
+    setImage(response);
+    });
+};
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      position: 'relative',
-    },
-    top: {
-      position: 'relative',
-      backgroundColor: '#5257F2',
-      paddingRight: 12.7,
-      paddingLeft: 12.7,
-      height: 250,
-    },
-    middle: {
-      width: '100%',
-      height: '100%',
-      flex: 1,
-      position: 'absolute',
-      zIndex: 2,
-      backgroundColor: 'transparent',
-      paddingLeft: 26.3,
-      paddingRight: 26.3,
-    },
-    bottom: {
-      position: 'relative',
-      height: '100%',
-      paddingRight: 12.7,
-      paddingLeft: 12.7,
-      backgroundColor: '#5257F2',
-    },
-    textContainer: {
-      color: '#FCFDFF',
-      fontSize: 24,
-      marginBottom: 30,
-      position: 'relative',
-      top: '20%',
-      alignSelf: 'center',
-    },
-    formArea: {
-      alignSelf: 'center',
-      width: '100%',
-      backgroundColor: '#ffffff',
-      borderRadius: 5,
-      top: '20%',
-      paddingBottom: 40,
-    },
-    signin: {
-      top: 0,
-      color: '#2D3057',
-      marginTop: 15,
-    },
-    formItems: {
-      marginTop: 15,
-      borderBottomColor: '#2D3057',
-    },
-    Input: {
-      fontFamily: 'Poppins-Bold',
-      fontSize: 12,
-    },
-    loginAs: {
-      paddingLeft: 46.6,
-      display: 'flex',
-      flexDirection: 'row',
-      marginTop: 15,
-      marginBottom: 20,
-      alignItems: 'center',
-    },
-    loginText: {
-      color: '#2D3057',
-      fontSize: 10,
-      fontWeight: 'bold',
-    },
-    cboxText: {
-      fontSize: 10,
-    },
-    Button: {
-      padding: 30.8,
-      borderRadius: 4,
-    },
-    mainBtn: {
-      backgroundColor: '#1DDCAF',
-    },
-    btnText: {
-      color: '#2D3057',
-      fontSize: 12,
-    },
-  });
+const onPress = async (e) => {
+  e.preventDefault()
 
-  export default EDataScreen;
+  const newDate = {
+    name,
+    age: parseInt(age),
+    phoneNumber,
+    numberOfDates: parseInt(numberOfDates),
+    lastDate,
+    // image: e.target.elements.image.value,
+    notes
+  }
+
+  api.addDate(deviceId, newDate)
+    .then((result) => {
+      alert('Date was added')
+      navigation.navigate('MainScreen')
+    })
+    .catch((e) => {
+      alert('Error', e)
+    })
+}
+
+return (
+  <View style={styles.container}>
+    <View style={{width:'100%'}}>
+      <Appbar.Header style={{ backgroundColor: '#FF7A93' }}>
+        <Appbar.Content title="Enter your new date" titleStyle={{ textAlign: "center", fontSize: 25 }} />
+        <Appbar.BackAction style={{position:"absolute"}}onPress={navigation.goBack} />
+      </Appbar.Header>
+    </View>
+      <View style={styles.InputContainer}>
+        <TextInput
+          style={styles.body}
+          placeholder="Name"
+          onChangeText={setName}
+          value={name}
+          placeholderTextColor={AppStyles.color.grey}
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View style={styles.InputContainer}>
+        <TextInput
+          style={styles.body}
+          placeholder="Age"
+          onChangeText={setAge}
+          value={age}
+          placeholderTextColor={AppStyles.color.grey}
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View style={styles.InputContainer}>
+        <TextInput
+          style={styles.body}
+          placeholder="Phone Number"
+          onChangeText={setphoneNumber}
+          value={phoneNumber}
+          placeholderTextColor={AppStyles.color.grey}
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View style={styles.InputContainer}>
+        <TextInput
+          style={styles.body}
+          placeholder="Number of Dates"
+          onChangeText={setnumberOfDates}
+          value={numberOfDates}
+          placeholderTextColor={AppStyles.color.grey}
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View style={styles.InputContainer}>
+        <TextInput
+          style={styles.body}
+          placeholder="Last Date"
+          onChangeText={setlastDate}
+          value={lastDate}
+          placeholderTextColor={AppStyles.color.grey}
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View style={styles.InputContainerNotes}>
+        <TextInput
+          style={styles.bodyNotes}
+          placeholder="Notes"
+          onChangeText={setNotes}
+          value={notes}
+          placeholderTextColor={AppStyles.color.grey}
+          underlineColorAndroid="transparent"
+          multiline={true}
+        />
+      </View>
+      <TouchableOpacity
+        onPress={() => insertImage('photo')}
+        style={styles.button}>
+        <Text style={{color: AppStyles.color.text}}>Insert Image</Text>
+      </TouchableOpacity>
+    </View>
+);
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: AppStyles.fontSize.title,
+    fontWeight: 'bold',
+    color: AppStyles.color.tint,
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  leftTitle: {
+    alignSelf: 'stretch',
+    textAlign: 'left',
+    marginLeft: 20,
+  },
+  content: {
+    paddingLeft: 50,
+    paddingRight: 50,
+    textAlign: 'center',
+    fontSize: AppStyles.fontSize.content,
+    color: AppStyles.color.text,
+  },
+  loginContainer: {
+    width: AppStyles.buttonWidth.main,
+    backgroundColor: AppStyles.color.tint,
+    borderRadius: AppStyles.borderRadius.main,
+    padding: 10,
+    marginTop: 30,
+  },
+  loginText: {
+    color: AppStyles.color.white,
+  },
+  placeholder: {
+    color: 'red',
+  },
+  InputContainer: {
+    width: AppStyles.textInputWidth.main,
+    marginTop: 30,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: AppStyles.color.grey,
+    borderRadius: AppStyles.borderRadius.main,
+  },
+  InputContainerNotes: {
+    width: AppStyles.textInputWidth.main,
+    marginTop: 30,
+    height: '17%',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: AppStyles.color.grey,
+    borderRadius: AppStyles.borderRadius.main,
+  },
+  body: {
+    height: 42,
+    paddingLeft: 20,
+    paddingRight: 20,
+    color: AppStyles.color.text,
+  },
+  bodyNotes: {
+    height: '94%',
+    paddingLeft: 20,
+    paddingRight: 20,
+    color: AppStyles.color.text,
+  },
+  button: {
+    width: AppStyles.textInputWidth.main,
+    justifyContent: 'center',
+    padding: 10,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: AppStyles.color.grey,
+    borderRadius: AppStyles.borderRadius.main,
+    position: 'absolute',
+    bottom:'17%',
+  },
+  facebookText: {
+    color: AppStyles.color.white,
+  },
+});
+
+export default EDataScreen;
