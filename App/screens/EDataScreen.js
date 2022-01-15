@@ -26,7 +26,7 @@ const EDataScreen = ({ navigation }) => {
   const [numberOfDates, setnumberOfDates] = useState('');
   const [lastDate, setlastDate] = useState('');
   const [notes, setNotes] = useState('');
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(null);
 
   const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
