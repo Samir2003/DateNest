@@ -26,11 +26,12 @@ const LoadingScreen = ({ navigation }) => {
     }, [])
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffb6c1'}}>
             <LottieView source={require('../../assets/heart.json')}
                 autoPlay
                 loop={true}
             />
+           <Image source={require('../../assets/title.png')} style={{top:'28%', right: '7%'}}/>
         </View>
     );
 };

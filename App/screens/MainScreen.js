@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Dimensions, Easing, SafeAreaView, SafeAreaViewBase, FlatList, Animated } from 'react-native';
 import * as Application from 'expo-application';
 import api from '../../src/calls.js'
-import { FontAwesome, Ionicons, Entypo, AntDesign } from 'react-native-vector-icons'
-import { Appbar } from 'react-native-paper';
+import { Entypo, Feather } from 'react-native-vector-icons'
 import { useIsFocused } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar';
 const { width, height } = Dimensions.get('screen');
@@ -14,13 +13,11 @@ const MainScreen = ({ navigation }) => {
 
   const [dates, setDates] = useState([])
   const [loading, setLoading] = useState(false)
-  const [user, setUser] = useState(null)
   const isFocused = useIsFocused()
   const SPACING = 18;
-  const MARGIN = 10;
   const AVATAR_SIZE = 70;
   const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
-  
+
 
   useEffect(() => {
     api.getMyDates(deviceId).then((dates) => {
@@ -31,8 +28,8 @@ const MainScreen = ({ navigation }) => {
   }, [isFocused, loading])
 
   /*
-   * @param _id is the objectId of the date to be deleted
-   */
+    * @param _id is the objectId of the date to be deleted
+    */
   const deleteItem = (date) => {
     setLoading(true)
     api.deleteDate(deviceId, date)
@@ -47,27 +44,46 @@ const MainScreen = ({ navigation }) => {
 
   const trimName = (name) => {
     const names = name.split(' ')
-    return names[0][0] + '. ' + names[1]
+    if (name.length < 8) {
+      return name
+    } else if (names.length === 1) {
+      return name.substring(0, 6) + '...'
+    }
+    else {
+      return names[0][0] + '. ' + names[1]
+    }
+  }
+
+  const formatPhone = (phone) => {
+    phone = phone.replace(/-/g, '')
+    return '(' + phone.substring(0, 3) + ') ' + phone.substring(3, 6) + ' - ' + phone.substring(6, 10)
   }
 
   const scrollY = React.useRef(new Animated.Value(0)).current;
 
-  return <View style={{ height: height, bottom: 0, backgroundColor: '#fff', ...StyleSheet.absoluteFillObject }}>
-    <Appbar.Header style={{ backgroundColor: '#FF7A93', alignItems: "center", height: '11%' }}>
-      <Image source={require('../../assets/logo.png')} style={{
-        left: width * 0.21,
-        top: height * 0.06
-      }} />
-      <Appbar.Action
-        icon="plus"
-        style={{ position: "absolute", right: 0 }}
-        onPress={() => navigation.navigate('EDataScreen')} />
-    </Appbar.Header>
-    {/* <Image
-      source={require('../../assets/rose.png')}
-      style={StyleSheet.absoluteFillObject}
-      blurRadius={20}
-    /> */}
+  return <View style={{ height: height, bottom: 0, backgroundColor: '#FFD3DA', ...StyleSheet.absoluteFillObject }}>
+    <View style={{ backgroundColor: '#FF7A93', alignItems: "center", height: '13%', borderBottomColor: 'black', borderBottomWidth: 1 }}>
+      <Image source={require('../../assets/logo.png')} style={{ marginBottom: 10, }} />
+      {/* <BlurView
+        // style={styles.blurView}
+        // blurRadius={1}
+        // blurType={blurType}
+      >
+        <Image source={require('../../assets/logo.png')} style={{ backgroundColor: 'black', position: 'absolute', blurRadius: "50%", borderColor: 'gray', borderWidth: 5 }} />
+      </BlurView> */}
+
+      <TouchableOpacity
+        style={{
+          marginTop: 45,
+          marginRight: 20,
+          position: 'absolute',
+          right: 0,
+        }}
+        onPress={() => navigation.navigate('EDataScreen')}
+      >
+        <Feather name="user-plus" size={32} color='#3B3B3B' />
+      </TouchableOpacity>
+    </View>
     <Animated.FlatList
       data={dates}
       onScroll={Animated.event(
@@ -113,18 +129,15 @@ const MainScreen = ({ navigation }) => {
               borderRadius: 50,
               borderColor: "#979797",
               borderWidth: 2,
-              shadowColor: "#e81919",
-              elevation: 600,
-              opacity: 1,
               transform: [{ scale }]
             }}>
             <TouchableOpacity
               onPress={() => navigation.navigate('VDataScreen', { item })}>
               <Image
-                source={item.image ? { uri: item.image.uri } : (require('../../assets/avatar.png'))}
+                source={item.image ? { uri: item.image } : (require('../../assets/avatar.png'))}
                 style={{
-                  width: AVATAR_SIZE, 
-                  height: AVATAR_SIZE, 
+                  width: AVATAR_SIZE,
+                  height: AVATAR_SIZE,
                   borderRadius: AVATAR_SIZE,
                   marginRight: SPACING + 5
                 }}
@@ -133,22 +146,22 @@ const MainScreen = ({ navigation }) => {
             <View style={{ flex: 1 }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('VDataScreen', { item })}>
-                <Text style={{ fontSize: height * 0.04, fontWeight: '700' }}>
+                <Text style={{ fontSize: height * 0.022, fontWeight: '700' }}>
                   {trimName(item.name)} {item.age && <Text>, {item.age}</Text>}</Text>
-                <Text style={{ fontSize: 17, opacity: .8, color: '#0099cc', marginTop: 6 }}>
-                  {item.phoneNumber ? item.phoneNumber : "No contact info"}</Text>
+                <Text style={{ fontSize: height * 0.014, opacity: .8, color: '#0099cc', marginTop: 6 }}>
+                  {item.phoneNumber ? formatPhone(item.phoneNumber) : "No contact info"}</Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity
               style={styles.trash}
               onPress={() => deleteItem(item)}>
-              <Entypo name="trash" size={30} />
+              <Entypo name="trash" size={30} color='#525252' />
             </TouchableOpacity>
           </Animated.View>
         </View>
       }}
     />
-  </View>
+  </View >
 }
 
 /// Just some styles
