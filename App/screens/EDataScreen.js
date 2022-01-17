@@ -38,8 +38,8 @@ const EDataScreen = ({ navigation }) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      alert('Image was successfully uploaded!')
     }
-    alert('Image was successfully uploaded!')
   }
 
   const onPress = async (e) => {

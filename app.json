@@ -18,7 +18,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFF"
-      }
+      },
+      "permissions":[],
+      "versionCode": 2,
+      "package": "datenest.apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"
