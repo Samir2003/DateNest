@@ -6,14 +6,17 @@ import {
   Button,
   Text,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native';
+import {Entypo} from 'react-native-vector-icons'
 import * as Application from 'expo-application';
 import api from '../../src/calls.js';
 import { useForm, Controller } from 'react-hook-form';
 import { Appbar } from 'react-native-paper';
 import { AppStyles } from '../AppStyles';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+const { width, height } = Dimensions.get('screen');
 
 const EDataScreen = ({ navigation }) => {
   const deviceId = Application.androidId;
@@ -26,15 +29,18 @@ const EDataScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
   const handleChoosePhoto = async () => {
-    const options = {
-      noData: true
-    };
-    const response = await ImagePicker.launchImageLibrary(options);
-    if (response.uri) {
-      setImage(response);
-      alert('Image was successfully uploaded');
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      alert('Image was successfully uploaded!')
     }
-  };
+  }
 
   const onPress = async (e) => {
     e.preventDefault();
@@ -56,12 +62,12 @@ const EDataScreen = ({ navigation }) => {
         navigation.navigate('MainScreen');
       })
       .catch((e) => {
-        alert('Error', e);
+        alert('Name not found', e);
       });
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior='height' style={styles.container} enabled>
       <View style={{ width: '100%' }}>
         <Appbar.Header style={{ backgroundColor: '#FF7A93' }}>
           <Appbar.Content
@@ -87,6 +93,7 @@ const EDataScreen = ({ navigation }) => {
       <View style={styles.InputContainer}>
         <TextInput
           style={styles.body}
+          keyboardType='numeric'
           placeholder="Age"
           onChangeText={setAge}
           value={age}
@@ -97,6 +104,7 @@ const EDataScreen = ({ navigation }) => {
       <View style={styles.InputContainer}>
         <TextInput
           style={styles.body}
+          keyboardType='numeric'
           placeholder="Phone Number"
           onChangeText={setphoneNumber}
           value={phoneNumber}
@@ -107,6 +115,7 @@ const EDataScreen = ({ navigation }) => {
       <View style={styles.InputContainer}>
         <TextInput
           style={styles.body}
+          keyboardType='numeric'
           placeholder="Number of Dates"
           onChangeText={setnumberOfDates}
           value={numberOfDates}
@@ -117,7 +126,8 @@ const EDataScreen = ({ navigation }) => {
       <View style={styles.InputContainer}>
         <TextInput
           style={styles.body}
-          placeholder="Last Date"
+          keyboardType='numeric'
+          placeholder="Last Date (MMDDYYYY)"
           onChangeText={setlastDate}
           value={lastDate}
           placeholderTextColor={AppStyles.color.grey}
@@ -136,16 +146,20 @@ const EDataScreen = ({ navigation }) => {
         />
       </View>
       <View>
-        <TouchableOpacity onPress={handleChoosePhoto} style={styles.button}>
-          <Text style={{ color: AppStyles.color.text }}>Choose Photo</Text>
+        <TouchableOpacity
+          onPress={handleChoosePhoto}
+          style={styles.button1}
+        >
+          <Entypo name="images" size={20}/>
+          <Text style={{ color: 'black' , marginLeft: 10}}>Choose Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity
-        onPress={onPress}
-        style={styles.button1}>
-        <Text style={{color: AppStyles.color.text}}>Submit</Text>
-      </TouchableOpacity>
+          onPress={onPress}
+          style={styles.button2}>
+          <Text style={{ color: 'black', textAlign:'center' }}>Submit</Text>
+        </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -153,7 +167,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#FFEBF7'
+    backgroundColor: '#ffb6c1'
   },
   title: {
     fontSize: AppStyles.fontSize.title,
@@ -189,7 +203,8 @@ const styles = StyleSheet.create({
   },
   InputContainer: {
     width: AppStyles.textInputWidth.main,
-    marginTop: 30,
+    marginTop: 17,
+    backgroundColor: '#fff',
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: AppStyles.color.grey,
@@ -199,6 +214,7 @@ const styles = StyleSheet.create({
     width: AppStyles.textInputWidth.main,
     marginTop: 30,
     height: '17%',
+    backgroundColor: '#fff',
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: AppStyles.color.grey,
@@ -217,21 +233,21 @@ const styles = StyleSheet.create({
     color: AppStyles.color.text
   },
   button1: {
-    width: AppStyles.textInputWidth.main,
+    borderRadius: 20,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: '#68BBE3',
     padding: 10,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: AppStyles.color.blue,
-    borderRadius: AppStyles.borderRadius.main,
-    position: 'absolute',
-    bottom:'4%',
+    marginTop: 20,
+    flexDirection:'row'
   },
-  facebookText: {
-    color: AppStyles.color.white
+  button2: {
+    width: 330,
+    borderRadius: 20,
+    justifyContent: 'center',
+    backgroundColor: '#0E86D4',
+    padding: 10,
+    marginTop: 20,
   }
 });
 
-export default EDataScreen;
+export default EDataScreen

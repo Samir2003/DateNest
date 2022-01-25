@@ -1,10 +1,17 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
-  trash: {
-    top: "5%",
-    borderRadius: 10,
-    right: "8%"
+  viewInfo: {
+    flex: 1,
+    padding: 18,
+    margin: 20,
+    marginBottom: 65,
+    backgroundColor: '#FFF',
+    borderRadius: 50,
+    borderColor: "#979797",
+    borderWidth: 2,
+    alignItems: 'center'
   },
   screenContainer: {
     flex: 1,
@@ -16,13 +23,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   text1: {
-    fontSize: height * 0.04, 
-    fontWeight: '700'
+    fontSize: 20
   },
   text2: {
-    fontSize: 17, 
-    opacity: .8, 
-    color: '#0099cc', 
+    fontSize: 17,
+    opacity: .8,
+    color: '#0099cc',
     marginTop: 6
   },
   buttonStyle: {
@@ -48,12 +54,12 @@ const styles = StyleSheet.create({
 
   //Headers
   appbarContent: {
-    textAlign:"center",
-    fontSize:25
+    textAlign: "center",
+    fontSize: 25
   },
   appbarAction: {
-    position:"absolute",
-    right:0
+    position: "absolute",
+    right: 0
   },
   appbarBack: {
     position: "absolute"
@@ -67,8 +73,9 @@ const styles = StyleSheet.create({
     right: "8%"
   },
   avatar: {
-    width: 70, 
-    height: 70, 
+    // width: "3%", 
+    // height: '3%', 
+    height: '10%',
     borderRadius: 70,
     marginRight: 23
   },
