@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 
+// Schema for a date
 const exDateSchema = mongoose.Schema({
   name: {
     type: String,
@@ -37,6 +38,7 @@ const exDateSchema = mongoose.Schema({
   }
 })
 
+// Adding schema to a model
 const ExDate = mongoose.model('ExDate', exDateSchema)
 
 export default ExDate

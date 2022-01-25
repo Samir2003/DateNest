@@ -4,14 +4,10 @@ import ExDate from './models/date.js';
 
 const router = express.Router();
 
-router.get('/test', async (req, res) => {
-  res.send("Samir is stupid")
-})
-
 /** 
 * Adds a user to db
 * @req has a body that contains an object with all the required fields of a user
-* @return user as an object
+* @returns user as an object
 **/
 router.post('/user', async (req, res) => {
   const user = new User(req.body);
@@ -24,12 +20,10 @@ router.post('/user', async (req, res) => {
   }
 });
 
-
-
 /** 
 * Looks for user in database
-* @id is the deviceId
-* @return user if found
+* @id in params is the deviceId
+* @returns user if found
 **/
 router.get('/:id/user', async (req, res) => {
   const deviceId = req.params.id;
@@ -46,11 +40,11 @@ router.get('/:id/user', async (req, res) => {
   }
 });
 
-/*
-Gets all of a user's dates
-:id is the device id
-returns array of 
-*/
+/**
+* Gets all of a user's dates
+* @id in params is the device id
+* @returns array of objects which represent each date
+**/
 router.get('/:id/allmydates', async (req, res) => {
   const deviceId = req.params.id;
 
@@ -68,11 +62,12 @@ router.get('/:id/allmydates', async (req, res) => {
   }
 });
 
-/*
-Adds a date to a user specified by deviceId
-:id is the device id
-date is ExDate
-*/
+/** 
+ * Adds a date to a user specified by deviceId
+ * @id in params is the device id
+ * @req contains a body that contains the info for the new date
+ * @returns the update user with the new date
+**/
 router.post('/:id/date', async (req, res) => {
   const deviceId = req.params.id;
   try {
@@ -96,18 +91,17 @@ router.post('/:id/date', async (req, res) => {
   }
 });
 
-/*
-deletes a date
-:id is device id
-_id is the date ObjectId. Make sure to include in body of request
-*/
+/** 
+ * Deletes a date with the specified _id the the request
+ * @id in params is device id
+ * @returns the date that was deleted
+**/
 router.delete('/:id/date', async (req, res) => {
   const deviceId = req.params.id
   const _id = req.body._id
 
   try {
     const exDate = await ExDate.findOneAndDelete({_id})
-    console.log(_id)
 
     if(!exDate) {
       return res.status(404).send('Date not found')
@@ -123,12 +117,13 @@ router.delete('/:id/date', async (req, res) => {
   }
 })
 
-/*
-update the info of a date
-_id in body is the id of the date to be updated
-updates in  body is an array of updates
-  Ex. [{name: newUsername}, {age: newAge}]
-*/
+/**
+ * Updates the info of a date of a specified user
+ * @id in params is the id of the date to be updated
+ * @updates in req is an array of objects that each contains an update
+ *      Ex. [{name: newUsername}, {age: newAge}]
+ * @returns the updated date
+**/
 router.patch('/date/update', async (req, res) => {
   const _id = req.body._id
 
@@ -146,6 +141,5 @@ router.patch('/date/update', async (req, res) => {
     res.status(500).send()
   }
 })
-
 
 export default router;
