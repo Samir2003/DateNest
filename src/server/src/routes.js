@@ -47,10 +47,18 @@ router.get('/:id/user', async (req, res) => {
 **/
 router.get('/:id/allmydates', async (req, res) => {
   const deviceId = req.params.id;
+  const start = Number(req.query.start) || 0;
+  const limit = 20;
 
   try {
     User.findOne({ deviceId })
-      .populate('dates')
+      .populate({
+        path: 'dates',
+        options: {
+          skip: start,
+          limit: limit
+        }
+      })
       .exec((err, user) => {
         if(err){
           return res.send("Error")
@@ -60,6 +68,7 @@ router.get('/:id/allmydates', async (req, res) => {
   } catch (e) {
     res.send();
   }
+});
 });
 
 /** 

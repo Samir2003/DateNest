@@ -17,15 +17,18 @@ const MainScreen = ({ navigation }) => {
   const SPACING = 18;
   const AVATAR_SIZE = 70;
   const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
-
+const loadMoreDates = async () => {
+    try {
+      const newDates = await api.getMyDates(deviceId, dates.length);
+      setDates([...dates, ...newDates]);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
-    api.getMyDates(deviceId).then((dates) => {
-      setDates(dates)
-    }).catch((e) => {
-      console.log(e)
-    })
-  }, [isFocused, loading])
+    loadMoreDates();
+  }, [isFocused, loading]);
 
   /*
     * @param _id is the objectId of the date to be deleted
@@ -84,7 +87,9 @@ const MainScreen = ({ navigation }) => {
         <Feather name="user-plus" size={32} color='#3B3B3B' />
       </TouchableOpacity>
     </View>
-    <Animated.FlatList
+data={dates}
+        onEndReached={loadMoreDates}
+        onEndReachedThreshold={0.5}
       data={dates}
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
