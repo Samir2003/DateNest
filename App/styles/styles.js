@@ -2,16 +2,9 @@ import { StyleSheet, Dimensions } from 'react-native'
 const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
-  viewInfo: {
-    flex: 1,
-    padding: 18,
-    margin: 20,
-    marginBottom: 65,
-    backgroundColor: '#FFF',
-    borderRadius: 50,
-    borderColor: "#979797",
-    borderWidth: 2,
-    alignItems: 'center'
+  //General
+  screen: {
+
   },
   screenContainer: {
     flex: 1,

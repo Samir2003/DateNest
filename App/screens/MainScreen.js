@@ -169,6 +169,5 @@ data={dates}
   </View >
 }
 
-
 /// Just some styles
 export default MainScreen
