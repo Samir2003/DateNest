@@ -29,18 +29,15 @@ const EDataScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
   const handleChoosePhoto = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-      alert('Image was successfully uploaded!')
+    const options = {
+      noData: true
+    };
+    const response = await ImagePicker.launchImageLibrary(options);
+    if (response.uri) {
+      setImage(response);
+      alert('Image was successfully uploaded');
     }
-  }
+  };
 
   const onPress = async (e) => {
     e.preventDefault();
@@ -146,17 +143,8 @@ const EDataScreen = ({ navigation }) => {
         />
       </View>
       <View>
-        <TouchableOpacity
-          onPress={handleChoosePhoto}
-          style={styles.button1}
-        >
-          <Entypo name="images" size={20}/>
-          <Text style={{ color: 'black' , marginLeft: 10}}>Choose Photo</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onPress}
-          style={styles.button2}>
-          <Text style={{ color: 'black', textAlign:'center' }}>Submit</Text>
+        <TouchableOpacity onPress={handleChoosePhoto} style={styles.button}>
+          <Text style={{ color: AppStyles.color.text }}>Choose Photo</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -166,8 +154,7 @@ const EDataScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#ffb6c1'
+    alignItems: 'center'
   },
   title: {
     fontSize: AppStyles.fontSize.title,
@@ -237,8 +224,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#68BBE3',
     padding: 10,
-    marginTop: 20,
-    flexDirection:'row'
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: AppStyles.color.blue,
+    borderRadius: AppStyles.borderRadius.main,
+    position: 'absolute',
+    bottom: '17%'
   },
   button2: {
     width: 330,

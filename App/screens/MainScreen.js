@@ -164,6 +164,5 @@ const MainScreen = ({ navigation }) => {
   </View >
 }
 
-
 /// Just some styles
 export default MainScreen
